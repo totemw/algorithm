@@ -3,7 +3,6 @@ Given two strings, find the longest common subsequence (LCS).
 
 Your code should return the length of LCS.
 
-Have you met this question in a real interview? Yes
 Example
 For "ABCD" and "EDCA", the LCS is "A" (or "D", "C"), return 1.
 

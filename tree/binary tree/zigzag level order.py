@@ -22,7 +22,7 @@ class Solution1:
             if level % 2 == 0:
                 res[level].append(root.val)
             else:
-                res[level].insert(o, root.val)
+                res[level].insert(0, root.val)
             self.preorder(root.left, level + 1, res)
             self.preorder(root.right, level + 1, res)
 

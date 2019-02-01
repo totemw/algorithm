@@ -33,6 +33,6 @@ def match(r1, r2):
     elif not r1 or not r2:
         return False
     elif r1.val == r2.val:
-        return match(r1.left, r2.left) and match(r1.right) and match(r2.right)
+        return match(r1.left, r2.left) and match(r1.right, r2.right)
     else:
         return False

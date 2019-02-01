@@ -48,7 +48,7 @@ def reverse(l):
         tmp = curr.next
         curr.next = prev
         prev = curr
-        curr = curr.next
+        curr = tmp
     l = prev
     return prev
 

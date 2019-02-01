@@ -25,7 +25,7 @@ class Solution:
             x += 1
         return ans
 
-    def findPath(self, root, target): # pre order
+    def findPath(self, root, target): # in order
         stack = []
         lastVisit = None
         while stack or root:

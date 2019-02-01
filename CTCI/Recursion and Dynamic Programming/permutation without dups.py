@@ -15,4 +15,5 @@ def permutations(s):
             result.append(tmp)
     return result
 
-print permutations("abcdefg")
+
+print (permutations("abcdefg"))

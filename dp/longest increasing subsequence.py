@@ -5,7 +5,7 @@ For [4, 2, 4, 5, 3, 7], the LIS is [4, 4, 5, 7], return 4
 """
 
 # subproblem: the length of increasing subsequence ended with i
-# dp[i] = max{dp[j] + 1}
+# dp[i] = max{dp[j] + 1} for j < i
 
 
 class Solution:

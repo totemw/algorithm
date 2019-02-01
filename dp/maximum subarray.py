@@ -48,3 +48,4 @@ class Solution2:
         for i in range(n - 1):
             mx = max(aa[i] + b[i + 1], mx)
         return mx
+

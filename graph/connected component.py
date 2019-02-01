@@ -14,6 +14,9 @@ class UndirectedGraphNode:
 
 
 class Solution:
+    def __init__(self):
+        self.v = {}
+
     def dfs(self, x, tmp):
         self.v[x.label] = True
         tmp.append(x.label)

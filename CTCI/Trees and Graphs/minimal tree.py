@@ -8,7 +8,7 @@ class TreeNode:
     def __init__(self, val):
         self.val = val
         self.left = None
-        self.rigth = None
+        self.right = None
 
 def createMinimalBST(arr):
     return createMinimalBST(arr, 0, len(arr) - 1)

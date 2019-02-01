@@ -16,5 +16,4 @@ def checkPermutation(s1, s2):
         hash[ord(s2[i])] -= 1
     return not filter(lambda x: x != 0, hash)
 
-print checkPermutation('sdfas', 'asdfs')
 

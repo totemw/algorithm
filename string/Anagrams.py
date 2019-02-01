@@ -1,4 +1,4 @@
-# decide whether two strings are anagrams or not
+ # decide whether two strings are anagrams or not
 
 import collections
 

@@ -17,6 +17,6 @@ def isPalindrome(self, s):
             r -= 1
         else:
             return False
-        return False
+    return True
 
 
