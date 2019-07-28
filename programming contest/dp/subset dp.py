@@ -2,7 +2,7 @@
 Given a weighted graph with n nodes, find the shortest path
 that visits every node exactly once
 
-np-hard
+np-interview
 brute force (n!)
 dp (n^2 * 2 ^ n)
 

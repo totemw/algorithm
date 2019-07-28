@@ -21,7 +21,7 @@ take the indices: 6 4 2 1 5 3
 
 Memory use: O(n)
 
-Can be constructed in O(n) time - hard
+Can be constructed in O(n) time - interview
 There is an approachable O(n log^2 n) algorithm
 
 """
