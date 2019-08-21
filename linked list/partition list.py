@@ -9,7 +9,7 @@ class ListNode(object):
         self.next = next
 
 # two pointer
-# time O(n); space O(1)
+# time O(n); space O(n)
 class Solution:
     def partition(self, head, x):
         if not head:

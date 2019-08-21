@@ -33,11 +33,11 @@ Your goal is to reach the last index in the minimum number of jumps.
 class Solution2:
     def jump(self, arr):
         result = 0
-        last = 0 # maximum distance tha has been reached
-        curr = 0
+        currMax = 0 # maximum distance tha has been reached
+        lastMax = 0
         for i in range(len(arr)):
-            if i > last:
-                last = curr
+            if i > currMax:
+                currMax = lastMax
                 result += 1
-            curr = max(curr, i+arr[i])
+            lastMax = max(lastMax, i+arr[i])
         return result

@@ -95,7 +95,7 @@ class Solution4:
         else:
             dp = [0 for _ in range(n)]
             for i in range(1, k + 1):
-                balance = -sys.maxint
+                balance = -sys.maxsize
                 prev = dp[0]
                 for j in range(1, n):
                     balance = max(balance, prev - prices[j - 1])
@@ -103,3 +103,30 @@ class Solution4:
                     dp[j] = max(dp[j - 1], balance + prices[j])
         return dp[-1]
 
+class Solution(object):
+    def maxProfit(self, k, prices):
+        """
+        :type k: int
+        :type prices: List[int]
+        :rtype: int
+        """
+        """
+        dp[:i][:j] means i times and prices[:j] (first jth prices)
+        dp[i][j] = max(dp[i][j-1] (not sell), 
+                       max(dp[i-1][k] + prices[j-1] - prices[k])
+                            for k in range (0, j-1)
+                       )
+        """
+        import sys
+
+        dp = [[0 for _ in range(len(prices) + 1)] for _ in range(k + 1)]
+        print(dp)
+        for i in range (1, k + 1):
+            tmpMax = -sys.maxsize
+            for j in range(2, len(prices) + 1):
+                # tmpMax = max(tmpMax, dp[i-1][j] - prices[j])
+                # dp[i][j] = max(dp[i][j], prices[j-1] + tmpMax)
+                for k in range(j - 1):
+                    dp[i][j] = max(dp[i][j], dp[i-1][k] + prices[j-1] - prices[k])
+                dp[i][j] = max(dp[i][j], dp[i][j-1])
+        print(dp)

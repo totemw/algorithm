@@ -32,7 +32,6 @@ class Solution1:
 
 
 sol = Solution1()
-print sol.longestSubsequence([1, 1, 1, 1])
 
 """
 Give you an integer matrix (with row size n, column size m)find the longest
@@ -53,8 +52,8 @@ class Solution2:
         self.n = len(arr)
         self.m = len(arr[0])
         self.matrix = [[0] * self.b for _ in range(self.n)]
-        for i in xrange(self.n):
-            for j in xrange(self.m):
+        for i in range(self.n):
+            for j in range(self.m):
                 self.search(arr, i, j)
 
         return max(max(row) for row in self.matrix)

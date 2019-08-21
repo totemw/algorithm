@@ -69,4 +69,3 @@ def primes(pos_stream):
     return Stream(pos_stream.first, compute_rest)
 
 prime_numbers = primes(integer_stream(2))
-print first_k_as_list(prime_numbers, 7)

@@ -50,3 +50,34 @@ class Solution2:
         maxPath = max(left[0], right[0], root.val + left[1] + right[1])
         single = max(left[1] + root.val, right[1] + root.val, 0)
         return maxPath, single
+
+def maxPathSumUtil(root, res):
+
+        # Base Case
+        if root is None:
+            return 0
+
+        if root.left is None and root.right is None:
+            return root.data
+
+            # Find maximumsum in left and righ subtree. Also
+        # find maximum root to leaf sums in left and righ
+        # subtrees ans store them in ls and rs
+        ls = maxPathSumUtil(root.left, res)
+        rs = maxPathSumUtil(root.right, res)
+
+        # If both left and right children exist
+        if root.left is not None and root.right is not None:
+            # update result if needed
+            res[0] = max(res[0], ls + rs + root.data)
+
+            # Return maximum possible value for root being
+            # on one side
+            return max(ls, rs, 0) + root.data
+
+            # If any of the two children is empty, return
+        # root sum for root being on one side
+        if root.left is None:
+            return rs + root.data
+        else:
+            return ls + root.data

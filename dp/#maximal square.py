@@ -2,7 +2,9 @@
 Given a 2D binary matrix filled with 0's and 1's, find the largest square
 containing all 1's and return its area.
 """
-
+"""
+find max length
+"""
 class Solution1:
     def maximalSquare(self, matrix):
         if matrix == []:
@@ -32,7 +34,7 @@ class Solution2:
                 dp[x][y] = (int(matrix[x][y]), int(matrix[x][y]))
                 if matrix[x][y] == "1":
                     dp[x][y] = (dp[x][y - 1][0] + 1, dp[x - 1][y][1] + 1)
-        print dp
+        print (dp)
         #         width = max(width, dp[x][y][0])
         #         height = max(height, dp[x][y][1])
         # return width * height
@@ -41,4 +43,4 @@ class Solution2:
 sol1 = Solution1()
 sol2 = Solution2()
 matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
-print sol2.maximalRectangle(matrix)
+print (sol2.maximalRectangle(matrix))

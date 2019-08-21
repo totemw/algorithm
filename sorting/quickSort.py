@@ -15,7 +15,7 @@ def quickSort2(alist, start, end):
     if start >= end:
         return
     tmp = start
-    for i in xrange(start + 1, end + 1):
+    for i in range(start + 1, end + 1):
         if alist[i] < alist[start]:
             tmp += 1
             alist[tmp], alist[i] = alist[i], alist[tmp]

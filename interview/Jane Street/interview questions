@@ -1,0 +1,269 @@
+Focused on recursion!! / game theory or optimal strategies.
+forum:
+https://www.1point3acres.com/bbs/interview/software-engineer-525407.html
+board game with k consecutive same color wins
+
+https://www.1point3acres.com/bbs/thread-532613-1-1.html
+写一个basic calculator 但不是leetcode parser，给了个split function展开做。
+
+https://www.1point3acres.com/bbs/thread-540153-1-1.html
+given 2 lists, output 4 lists: prefix postfix rest of A / B
+given 2 lists, output joint set, elements only appear once
+first_list + list(set(second_list) - set(first_list))
+
+https://leetcode.com/discuss/interview-question/174848/Jane-Street-Software-Engineering-Intern%3A-Unit-Conversion
+
+https://www.1point3acres.com/bbs/thread-490944-1-1.html
+实现一个简单语言的解释器
+- push <primitive> (int / str)
+- pop
+- pop_print
+- add: pop 2 <primitive> and add then push back
+- jump <index> jump to index command - detect cycle
+jump back not work
+
+
+
+1. How to reduce the addresses in various ports.
+Like if you have ports = {"a": "12.x.y.3", "x": "4", y: "x.x"}
+you have to first replace y=x.x with y=4.4 since x=4.
+Then you have to replace a=12.x.y.3=12.4.4.4.3
+
+2. prefix-postfix calculation
+(1) conversion
+prefix  postfix conversion: stack
+Read the Prefix expression in reverse order (from right to left)
+If the symbol is an operand, then push it onto the Stack
+If the symbol is an operator, then pop two operands from the Stack
+Create a string by concatenating the two operands and the operator after them.
+string = operand1 + operand2 + operator
+And push the resultant string back to Stack
+Repeat the above steps until end of Prefix expression.
+
+covert using recursion:
+def prefixToPostfixRecursive(expression):
+    operators = set(['+', '-', '*', '/'])
+    # Pass index by reference by using a list
+    # This is the python workaround of passing int by reference
+    def helper(expr, index):
+        if index[0] == len(expr):
+            return
+
+        curr_char = expr[index[0]]
+        # If expression is operand, return it
+        if curr_char not in operators:
+            return curr_char
+        else:
+            index[0] += 1
+            left = helper(expr, index)
+            index[0] += 1
+            right = helper(expr, index)
+            # Append it as operand + operand + operator
+            return left + right + curr_char
+
+    cur_index = [0]
+    return helper(expression, cur_index)
+
+(2) calculation:
+prefix:
+from collections import deque
+def parse(tokens):
+    token=tokens.popleft()
+    if token=='+':
+            return parse(tokens)+parse(tokens)
+    elif token=='-':
+            return parse(tokens)-parse(tokens)
+    elif token=='*':
+            return parse(tokens)*parse(tokens)
+    elif token=='/':
+            return parse(tokens)/parse(tokens)
+    else:
+            # must be just a number
+            return int(token)
+
+
+if __name__=='__main__':
+        expression="+ 2 2"
+        print parse(deque(expression.split()))
+
+
+3. Parse a parentheses expression using recursion
+recursive descent
+
+
+4. How would you build a mock trading system
+
+5. Design a Tetris Game： A New Tetris Game
+Lele和姐姐先拿出一块长方形的棋盘，这个棋盘有些格子是不可用的，剩下的都是可用的。Lele和姐姐拿出俄罗斯方块里的正方形方块(大小为2*2的正方形方块)轮流往棋盘里放，要注意的是，放进去的正方形方块不能叠在棋盘不可用的格子上，也不能叠在已经放了的正方形方块上。
+到最后，谁不能再放正方形方块，谁就输了。
+
+现在，假设每次Lele和姐姐都很聪明，都能按最优策略放正方形，并且每次都是Lele先放正方形，你能告诉他他是否一定能赢姐姐吗？
+
+bool set(int i, int j){
+	if(!g[i][j] && !g[i+1][j] && !g[i][j+1] && !g[i+1][j+1]){
+		g[i][j] = g[i+1][j] = g[i][j+1] = g[i+1][j+1] = true;
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * 恢复到原来状态
+ */
+void unset(int i , int j){
+	g[i][j] = g[i+1][j] = g[i][j+1] = g[i+1][j+1] = false;
+
+}
+
+bool dfs(){
+	int i,j;
+
+	for(i = 1 ; i < n ; ++i){//之所以不写成 i <= n 是因为这个正方形是2 * 2的。那样放会出界的
+		for(j = 1 ; j < m ; ++j){
+			if(set(i,j)){
+				if(!dfs()){
+					unset(i,j);
+					return true;//此位置放的话会导致一个必败态，故此状态必胜
+				}
+				unset(i,j);
+			}
+		}
+	}
+
+	return false;//没有找到必败态或无路可走了，故此状态必败
+}
+
+---------------------
+版权声明：本文为CSDN博主「黄俊东」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/hjd_love_zzt/article/details/10900097
+
+
+6. Several basic binary tree questions that built off of each other in difficulty.
+From implementation to finding the depth to checking if the tree is symmetrical.
+
+7. buy and sell the stock.
+
+8. least recently used algorithm for replacing the contents of a cache after a cache miss.
+LRU
+
+9.Find the smallest sublist size in a list of lists.
+
+this is incorrect. List.length is O(n) as stated in the problem so using it is O(n^2).
+Here's an O(nlog(n)) algorithm.
+
+Find length of the first sublist. Call this L. Then, for each subsequent sublist,
+check if L is a valid index into that list.
+If so, ignore it.
+Else, use binary search (starting from L) to find the length of this smaller sublist.
+It's length is the new L. Repeat going through the list and you win.
+
+10. Write an append function in OCaml. (never used OCaml before)
+
+11. evaluating arithmetic expressions
+
+stack to evaluate expression: push operator into stack
+rule: precedence < top, pop, or precedence equal and top is right associate, pop, ) pop until (
+transform infix -> post fix:  5 * ( 6 + 2 ) - 12 / 4 =>  5 6 2 + * 12 4 / -
+Note: reverse expression -> postfix -> revert postfix -> prefix
+evaluate:
+push number into stack
+rule: whenever encounter operator, pop 2 number from stack, eval it and push back to stack
+
+
+12. Given a matrix of chars from the set {"u", "l", "d", "r ", "x"},
+where the matrix is guaranteed to have one "x,"
+and each of the other chars represent a direction up, down, left, and right,
+ and a point on the matrix, write a function that returns true if "x" can be reached by following the specified path.
+check cycle, off board or x
+
+13. Inorder tree traversal. Given a tree, return a new tree with the same structure but all values replaced with Unit.
+ Given the inorder tree traversal, and tree structure with Units, reconstruct the tree.
+
+14. Implement data structures and evaluation function for a stack machine given certain instructions
+that operate on a stack of data (ints and strings).
+
+Implement a machine with a stack and a memory.
+Implement a  method that takes a list of instructions and executes them on the machine
+then outputs the last element on the machine's stack.
+How would you build an OCaml-like syntax using that machine.
+Now, given an expression in the structure you've built,
+convert it into a list of instructions that can be run on the machine.
+
+15. Implement a binary search tree (BST) and judge a tree whether is a BST
+
+16. Write a bytecode interpreter in any language you like
+
+17. Questions about implementing spreadsheet functionality, and the complexity of certain operations
+
+18. Some average data structure construction question
+
+19. Same street fighter question another Glassdoor interview mentioned.
+Write two functions: register and on_key.
+Register takes a combination of keys as a string and a name for the combo.
+On_key takes a single keypress and check if that keypress completes a combo registerd.
+Given possible inputs Up, Down, Left, Right, A, and B. Registered combos can be of unlimited length.
+https://ideone.com/dj2e1G
+
+20. Tree traversal in OCAML and run times.
+
+21. method that takes an int and an array and rotates  the array right n times.
+ Give an answer with constant space and linear time.
+
+ rotateRight(array, n) =
+    reverse(array, 0, size(array) - 1)
+    reverse(array, 0, n - 1)
+    reverse(array, n, size(array) - 1)
+
+22. Design a monitoring system for a server farm.
+
+23. Given an OCaml representation of a pseudo-binary tree,
+describe how to compare two trees and hte run time. implement BST
+
+24. Find the k-th child of a node in a tree. Use OCaml
+
+25. Given a list of words as an input, group them by their anagrams.
+
+26. he first task was to write an interpreter that could  calculate 'x+y'.
+As this was completed more tasks were added on.
+
+27. Given a board with directions to follow in every block,
+how would you tell if you can ever reach point "x" or not.
+Problem 1: you are given matrix filled with letters "U" "D" "L" "R" "X". On "U" you can move only up etc... X is destination. Find if it is possible to reach X. (Watch out for loops)
+
+Problem 2: How many edits (e.x. change "U" -> "L") you need to make in order to reach X.
+
+28. Implement a limited-capacity message queue.
+
+29. Build an assembly-like interpreter
+
+30. You have a string of characters and a list of strings
+that you want to find on this string online and decide whether some of them just appeared.
+
+31. large number multiplication
+
+32.  Immutable data structures
+
+33. Given 2 sorted arrays of integers both of length n, find the element that would be n-th after merging arrays.
+
+34. Given a list of words, right a function to return a list of pairs of palindromes
+https://www.glassdoor.com/Interview/Given-a-list-of-words-right-a-function-to-return-a-list-of-pairs-of-palindromes-QTN_521852.htm
+
+35.Given a list of N people.
+On the first day, divide them into N/2 groups, each group contains two people.
+On the day 2, divide them into groups of two again...
+Do this every day, until day N-1.
+In a way such that all pairs of people has been groupmates once.
+https://www.glassdoor.com/Interview/Given-a-list-of-N-people-On-the-first-day-divide-them-into-N-2-groups-each-group-contains-two-people-On-the-day-2-di-QTN_558762.htm
+
+36. Write a tail recursive version of the map function
+https://www.glassdoor.com/Interview/Write-a-tail-recursive-version-of-the-map-function-QTN_232377.htm
+
+37.NDA
+
+38. Coding a calculator program.
+
+39. I was asked to implement a function in a functional  programming language (since I had listed in on my resume)
+that would test to see if two lambda expressions were alpha-equivalent.
+
+40.  design the interface of a functional immutable queue, better in a functional programming language.
